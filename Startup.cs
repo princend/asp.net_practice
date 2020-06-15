@@ -72,6 +72,20 @@ namespace myweb
                 });
             });
 
+            app.Map("/second", mapApp =>
+            {
+                mapApp.Use(async (context, next) =>
+                {
+                    await context.Response.WriteAsync("in\r\n");
+                    await next.Invoke();
+                    await context.Response.WriteAsync("out\r\n");
+                });
+                mapApp.Run(async context =>
+                {
+                    await context.Response.WriteAsync("second \r\n");
+                });
+            });
+
             // var thread = new Thread(new ThreadStart(() =>
             // {
             //     Thread.Sleep(5 * 1000);
