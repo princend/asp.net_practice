@@ -17,6 +17,8 @@ namespace myweb
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<ISample, Sample>();
             Program.Output("startup.configureservice -called");
         }
 
@@ -39,27 +41,15 @@ namespace myweb
                 applicationLifetime.ApplicationStopped.Register(() =>
                 {
                     // Thread.Sleep(5 * 1000);
-                    Program.Output("lifetime stopped");
+                    // Program.Output("lifetime stopped");
                 });
 
-                Program.Output("configure isdevelopment");
+                // Program.Output("configure isdevelopment");
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Use(async (context, next) =>
-            {
-                await context.Response.WriteAsync("first middleawre in \r\n");
-                await next.Invoke();
-                await context.Response.WriteAsync("first middleware out \r\n");
-            });
-
-            app.Use(async (context, next) =>
-            {
-                await context.Response.WriteAsync("second middleawre in \r\n");
-                await next.Invoke();
-                await context.Response.WriteAsync("second middleware out \r\n");
-            });
-
+            app.UseFirstMiddleware();
+            // app.UseMiddleware<FirstMiddleware>();
 
             app.UseRouting();
 
@@ -68,7 +58,7 @@ namespace myweb
                 endpoints.MapGet("/", async context =>
                 {
                     // Program.Output("get");
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Hello World!\r\n");
                 });
             });
 
