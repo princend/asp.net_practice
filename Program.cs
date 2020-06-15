@@ -13,18 +13,18 @@ namespace myweb
     {
         public static void Main(string[] args)
         {
-            Output("start");
+            // Output("start");
             CreateHostBuilder(args).Build().Run();
-            Output("end");
+            // Output("end");
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    Output("before");
+                    // Output("before");
                     webBuilder.UseStartup<Startup>();
-                    Output("build Webhost");
+                    // Output("build Webhost");
                 });
 
 

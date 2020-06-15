@@ -28,17 +28,17 @@ namespace myweb
 
                 applicationLifetime.ApplicationStarted.Register(() =>
                 {
-                    Program.Output("lifetime started");
+                    // Program.Output("lifetime started");
                 });
 
                 applicationLifetime.ApplicationStopping.Register(() =>
                 {
-                    Program.Output("lifetime stopping");
+                    // Program.Output("lifetime stopping");
                 });
 
                 applicationLifetime.ApplicationStopped.Register(() =>
                 {
-                    Thread.Sleep(5 * 1000);
+                    // Thread.Sleep(5 * 1000);
                     Program.Output("lifetime stopped");
                 });
 
@@ -46,24 +46,39 @@ namespace myweb
                 app.UseDeveloperExceptionPage();
             }
 
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("first middleawre in \r\n");
+                await next.Invoke();
+                await context.Response.WriteAsync("first middleware out \r\n");
+            });
+
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("second middleawre in \r\n");
+                await next.Invoke();
+                await context.Response.WriteAsync("second middleware out \r\n");
+            });
+
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    Program.Output("get");
+                    // Program.Output("get");
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
 
-            var thread = new Thread(new ThreadStart(() =>
-            {
-                Thread.Sleep(5 * 1000);
-                Program.Output("triger stop webhost");
-                applicationLifetime.StopApplication();
-            }));
-            thread.Start();
+            // var thread = new Thread(new ThreadStart(() =>
+            // {
+            //     Thread.Sleep(5 * 1000);
+            //     Program.Output("triger stop webhost");
+            //     applicationLifetime.StopApplication();
+            // }));
+            // thread.Start();
         }
     }
 }
