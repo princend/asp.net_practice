@@ -3,6 +3,7 @@
 
 
 using Microsoft.AspNetCore.Mvc;
+using myweb;
 
 public class HomeController : Controller
 {
@@ -30,6 +31,13 @@ public class HomeController : Controller
 
         ViewBag.SingletonId = _singleton.Id;
         ViewBag.SingletonHashCode = _singleton.GetHashCode();
-        return View();
+
+        var user = new UserModel();
+        return View(model: user);
+    }
+
+    public string getDescription()
+    {
+        return "this is homecontroller description";
     }
 }
