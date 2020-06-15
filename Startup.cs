@@ -17,39 +17,26 @@ namespace myweb
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddTransient<ISampleTransient, Sample>();
             services.AddScoped<ISample, Sample>();
+            services.AddSingleton<ISampleSingleton, Sample>();
+
             Program.Output("startup.configureservice -called");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Microsoft.Extensions.Hosting.IApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-
-                applicationLifetime.ApplicationStarted.Register(() =>
-                {
-                    // Program.Output("lifetime started");
-                });
-
-                applicationLifetime.ApplicationStopping.Register(() =>
-                {
-                    // Program.Output("lifetime stopping");
-                });
-
-                applicationLifetime.ApplicationStopped.Register(() =>
-                {
-                    // Thread.Sleep(5 * 1000);
-                    // Program.Output("lifetime stopped");
-                });
-
-                // Program.Output("configure isdevelopment");
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
+
+            app.UseStaticFiles();
+
             app.UseFirstMiddleware();
-            // app.UseMiddleware<FirstMiddleware>();
 
             app.UseRouting();
 
@@ -57,7 +44,6 @@ namespace myweb
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    // Program.Output("get");
                     await context.Response.WriteAsync("Hello World!\r\n");
                 });
             });
@@ -75,14 +61,6 @@ namespace myweb
                     await context.Response.WriteAsync("second \r\n");
                 });
             });
-
-            // var thread = new Thread(new ThreadStart(() =>
-            // {
-            //     Thread.Sleep(5 * 1000);
-            //     Program.Output("triger stop webhost");
-            //     applicationLifetime.StopApplication();
-            // }));
-            // thread.Start();
         }
     }
 }

@@ -20519,6 +20519,12 @@
     "CSharpLanguageVersion": 800
   },
   "RootNamespace": "myweb",
-  "Documents": [],
+  "Documents": [
+    {
+      "FilePath": "c:\\myweb\\Views\\Home\\Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    }
+  ],
   "SerializationFormat": "0.2"
 }

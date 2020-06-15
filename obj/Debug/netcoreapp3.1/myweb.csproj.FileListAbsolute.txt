@@ -18,3 +18,14 @@ C:\myweb\obj\Debug\netcoreapp3.1\staticwebassets\myweb.StaticWebAssets.xml
 C:\myweb\obj\Debug\netcoreapp3.1\myweb.dll
 C:\myweb\obj\Debug\netcoreapp3.1\myweb.pdb
 C:\myweb\obj\Debug\netcoreapp3.1\myweb.genruntimeconfig.cache
+C:\myweb\bin\Debug\netcoreapp3.1\myweb.Views.dll
+C:\myweb\bin\Debug\netcoreapp3.1\myweb.Views.pdb
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.RazorAssemblyInfo.cache
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.RazorAssemblyInfo.cs
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.TagHelpers.input.cache
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.TagHelpers.output.cache
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.RazorCoreGenerate.cache
+C:\myweb\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.RazorTargetAssemblyInfo.cs
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.Views.pdb
+C:\myweb\obj\Debug\netcoreapp3.1\myweb.csproj.CopyComplete
