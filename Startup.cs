@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using myweb.Controllers;
 
 namespace myweb
 {
@@ -25,6 +26,8 @@ namespace myweb
 
             // Program.Output("startup.configureservice -called");
 
+            services.AddHttpContextAccessor();
+            services.AddControllers();
             services.AddRouting();
         }
 
@@ -36,13 +39,6 @@ namespace myweb
                 app.UseDeveloperExceptionPage();
             }
 
-            //轉址
-            var rewrite = new RewriteOptions()
-            .AddRewrite("about.aspx", "home/about", skipRemainingRules: true)
-            .AddRedirect("first", "home/index", 301);
-            app.UseRewriter(rewrite);
-
-
             var defaultRouteHandler = new RouteHandler(context =>
             {
                 var routeValues = context.GetRouteData().Values;
@@ -53,48 +49,17 @@ namespace myweb
 
             routeBuilder.MapRoute("default", "{first:regex(^(default|home)$)}/{second?}");
 
-            routeBuilder.MapGet("user/{name}", context =>
-            {
-                var name = context.GetRouteValue("name");
-                return context.Response.WriteAsync($"Get user.name: {name}");
-            });
-
-            routeBuilder.MapPost("user/{name}", context =>
-            {
-                var name = context.GetRouteValue("name");
-                return context.Response.WriteAsync($"create user.name {name}");
-            });
-
             var routes = routeBuilder.Build();
             app.UseRouter(routes);
-
-            app.UseDefaultFiles();
-
-            app.UseStaticFiles();
-
-            app.UseFirstMiddleware();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!\r\n");
-                });
-            });
-
-            app.Map("/second", mapApp =>
-            {
-                mapApp.Use(async (context, next) =>
-                {
-                    await context.Response.WriteAsync("in\r\n");
-                    await next.Invoke();
-                    await context.Response.WriteAsync("out\r\n");
-                });
-                mapApp.Run(async context =>
-                {
-                    await context.Response.WriteAsync("second \r\n");
                 });
             });
         }

@@ -4,40 +4,40 @@
 
 using Microsoft.AspNetCore.Mvc;
 using myweb;
-
-public class HomeController : Controller
+namespace myweb.Controllers
 {
-    private readonly ISampleTransient _transient;
-    private readonly ISampleScoped _scoped;
-    private readonly ISampleSingleton _singleton;
-    public HomeController(
-        ISampleTransient transient,
-        ISampleScoped scoped,
-        ISampleSingleton singleton
-    )
+    public class HomeController : Controller
     {
-        _transient = transient;
-        _scoped = scoped;
-        _singleton = singleton;
-    }
+        private readonly ISampleTransient _transient;
+        private readonly ISampleScoped _scoped;
+        private readonly ISampleSingleton _singleton;
+        public HomeController(
+            ISampleTransient transient,
+            ISampleScoped scoped,
+            ISampleSingleton singleton
+        )
+        {
+            _transient = transient;
+            _scoped = scoped;
+            _singleton = singleton;
+        }
 
-    public IActionResult Index()
-    {
-        ViewBag.transientId = _transient.Id;
-        ViewBag.transientHasCode = _transient.GetHashCode();
 
-        ViewBag.ScopeId = _scoped.Id;
-        ViewBag.ScopeHashCode = _scoped.GetHashCode();
+        public IActionResult BodySample([FromBody] UserModel model)
+        {
+            return Ok(model);
+        }
 
-        ViewBag.SingletonId = _singleton.Id;
-        ViewBag.SingletonHashCode = _singleton.GetHashCode();
+        public IActionResult Index(int id)
+        {
+            return Content($"id:{id}");
+        }
 
-        var user = new UserModel();
-        return View(model: user);
-    }
+        public string getDescription()
+        {
+            return "this is homecontroller description";
+        }
 
-    public string getDescription()
-    {
-        return "this is homecontroller description";
+
     }
 }
