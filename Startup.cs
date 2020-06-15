@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,6 +35,13 @@ namespace myweb
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //轉址
+            var rewrite = new RewriteOptions()
+            .AddRewrite("about.aspx", "home/about", skipRemainingRules: true)
+            .AddRedirect("first", "home/index", 301);
+            app.UseRewriter(rewrite);
+
 
             var defaultRouteHandler = new RouteHandler(context =>
             {
