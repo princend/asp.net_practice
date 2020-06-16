@@ -8,9 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using myweb.Controllers;
+
 
 namespace myweb
 {
@@ -18,17 +19,16 @@ namespace myweb
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ISampleTransient, Sample>();
-            services.AddScoped<ISample, Sample>();
-            services.AddSingleton<ISampleSingleton, Sample>();
-
-            // Program.Output("startup.configureservice -called");
-
-            services.AddHttpContextAccessor();
             services.AddControllers();
-            services.AddRouting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,28 +39,32 @@ namespace myweb
                 app.UseDeveloperExceptionPage();
             }
 
-            var defaultRouteHandler = new RouteHandler(context =>
-            {
-                var routeValues = context.GetRouteData().Values;
-                return context.Response.WriteAsync($"Route values:{string.Join(",", routeValues)}");
-            });
+            // var defaultRouteHandler = new RouteHandler(context =>
+            // {
+            //     var routeValues = context.GetRouteData().Values;
+            //     return context.Response.WriteAsync($"Route values:{string.Join(",", routeValues)}");
+            // });
 
-            var routeBuilder = new RouteBuilder(app, defaultRouteHandler);
+            // var routeBuilder = new RouteBuilder(app, defaultRouteHandler);
 
-            routeBuilder.MapRoute("default", "{first:regex(^(default|home)$)}/{second?}");
+            // routeBuilder.MapRoute("default", "{first:regex(^(default|home)$)}/{second?}");
 
-            var routes = routeBuilder.Build();
-            app.UseRouter(routes);
+            // var routes = routeBuilder.Build();
+
+
+            // app.UseRouter(routes);
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!\r\n");
-                });
+                // endpoints.MapGet("/", async context =>
+                // {
+                //     await context.Response.WriteAsync("Hello World!\r\n");
+                // });
             });
         }
     }

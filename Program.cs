@@ -22,15 +22,7 @@ namespace myweb
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    // Output("before");
                     webBuilder.UseStartup<Startup>();
-                    // Output("build Webhost");
                 });
-
-
-        public static void Output(string message)
-        {
-            Console.WriteLine($"[{DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")}]{message}");
-        }
     }
 }

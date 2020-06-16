@@ -20521,6 +20521,11 @@
   "RootNamespace": "myweb",
   "Documents": [
     {
+      "FilePath": "c:\\myweb\\Pages\\Index.cshtml",
+      "TargetPath": "Pages\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\myweb\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"

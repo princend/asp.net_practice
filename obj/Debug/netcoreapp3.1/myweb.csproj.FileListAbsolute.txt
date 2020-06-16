@@ -29,3 +29,4 @@ C:\myweb\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\myweb\obj\Debug\netcoreapp3.1\myweb.RazorTargetAssemblyInfo.cs
 C:\myweb\obj\Debug\netcoreapp3.1\myweb.Views.pdb
 C:\myweb\obj\Debug\netcoreapp3.1\myweb.csproj.CopyComplete
+C:\myweb\obj\Debug\netcoreapp3.1\Razor\Pages\Index.cshtml.g.cs

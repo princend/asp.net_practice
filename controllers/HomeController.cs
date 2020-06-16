@@ -4,8 +4,11 @@
 
 using Microsoft.AspNetCore.Mvc;
 using myweb;
+using myweb.Models;
+
 namespace myweb.Controllers
 {
+    [Route("home")]
     public class HomeController : Controller
     {
         private readonly ISampleTransient _transient;
@@ -22,12 +25,14 @@ namespace myweb.Controllers
             _singleton = singleton;
         }
 
-
+        [HttpPost]
         public IActionResult BodySample([FromBody] UserModel model)
         {
             return Ok(model);
         }
 
+        [HttpGet]
+        [Route("Index")]
         public IActionResult Index(int id)
         {
             return Content($"id:{id}");
