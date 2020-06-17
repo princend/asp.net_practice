@@ -10,32 +10,37 @@ namespace myweb.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        Product[] products = new Product[]
+
+        public List<Product> _products = new List<Product>();
+
+        public ProductsController()
         {
-            new Product{Id=1,Name="to-to",Category="gro",Price=1},
-            new Product{Id=2,Name="yo-yo",Category="toy",Price=3.75M},
-            new Product{Id=3,Name="hammer",Category="hardware",Price=16.75M}
-        };
+            _products.Add(new Product { Id = 1, Name = "to-to", Category = "gro", Price = 1 });
+            _products.Add(new Product { Id = 2, Name = "yo-yo", Category = "toy", Price = 3.75M });
+            _products.Add(new Product { Id = 3, Name = "hammer", Category = "hardware", Price = 16.75M });
+        }
 
 
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            return products;
+            return _products;
         }
 
 
         [HttpGet("{id}")]
         public Product Get(int id)
         {
-            return products.FirstOrDefault((e) => e.Id == id);
+            return _products.FirstOrDefault((e) => e.Id == id);
         }
 
         [HttpPost]
         [Route("addProduct")]
         public Product Add([FromBody] Product product)
         {
-            product.Price = 689;
+
+            _products.Add(product);
+            // product.Price = 689;
             return product;
         }
 
